@@ -50,11 +50,12 @@ wrench2thrust::wrench2thrust() : Node("wrench2thrust")
   timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
 }
 
-void wrench2thrust::timer_callback(){
+void wrench2thrust::timer_callback()
+{
   auto msg_left_thrust = std_msgs::msg::Float64();
-  msg_left_thrust.data=1.0;
+  msg_left_thrust.data = 1.0;
   left_thrust_pub->publish(msg_left_thrust);
-  RCLCPP_INFO(get_logger(),"msg_left_thrust is %f",msg_left_thrust.data);
+  RCLCPP_INFO(get_logger(), "msg_left_thrust is %f", msg_left_thrust.data);
 }
 
 }  // end namespace wrench2thrust
