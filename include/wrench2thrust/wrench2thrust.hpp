@@ -50,28 +50,30 @@
 
 using namespace std::chrono_literals;
 
-namespace wrench2thrust_ns
-{
-class wrench2thrust : public rclcpp::Node
-{
-public:
-  /** \brief Constructor */
+namespace wrench2thrust_ns {
+    class wrench2thrust : public rclcpp::Node {
+    public:
+        /** \brief Constructor */
 
-  explicit  wrench2thrust(const rclcpp::NodeOptions &options=rclcpp::NodeOptions());
+        explicit wrench2thrust(const rclcpp::NodeOptions &options = rclcpp::NodeOptions());
 
-  void wrench_callback();
-  void timer_callback();
+        void wrench_callback();
 
-private:
-  rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_thrust_pub;
-  rclcpp::TimerBase::SharedPtr timer_;
+        void timer_callback();
 
-  void sub_callback(const geometry_msgs::msg::WrenchStamped &msg);
-};  // end class wrench2thrust
+    private:
+        rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_prop_thrust_pub;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_prop_pos_pub;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr right_prop_thrust_pub;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr right_prop_pos_pub;
+        rclcpp::TimerBase::SharedPtr timer_;
+
+        void sub_callback(const geometry_msgs::msg::WrenchStamped &msg);
+    };  // end class wrench2thrust
 
 // Create std pointers for this class
-typedef std::shared_ptr<wrench2thrust> wrench2thrustPtr;
-typedef std::shared_ptr<const wrench2thrust> wrench2thrustConstPtr;
+    typedef std::shared_ptr<wrench2thrust> wrench2thrustPtr;
+    typedef std::shared_ptr<const wrench2thrust> wrench2thrustConstPtr;
 
 }  // namespace wrench2thrust

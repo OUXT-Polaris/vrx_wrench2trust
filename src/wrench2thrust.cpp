@@ -39,29 +39,29 @@
 
 using std::placeholders::_1;
 
-namespace wrench2thrust_ns
-{
+namespace wrench2thrust_ns {
 
-wrench2thrust::wrench2thrust(const rclcpp::NodeOptions& options) : Node("wrench2thrust", options)
-{
-  RCLCPP_INFO(get_logger(), "Initializing wrench2thrust...");
-  wrench_sub = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
-      "wamv/wrench", 1, std::bind(&wrench2thrust::sub_callback, this, _1));
-  //  left_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/thrust/data", 10);
-  //  timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
-}
+    wrench2thrust::wrench2thrust(const rclcpp::NodeOptions &options) : Node("wrench2thrust", options) {
+        RCLCPP_INFO(get_logger(), "Initializing wrench2thrust...");
+        wrench_sub = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
+                "wamv/wrench", 1, std::bind(&wrench2thrust::sub_callback, this, _1));
+        left_prop_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/thrust", 10);
+        left_prop_pos_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/pos", 10);
+        right_prop_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/right/thrust", 10);
+        right_prop_pos_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/right/pos", 10);
 
-void wrench2thrust::sub_callback(const geometry_msgs::msg::WrenchStamped &msg)
-{
-  RCLCPP_INFO(get_logger(),"%f",msg.wrench.force.x);
-}
+        //  timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
+    }
 
-void wrench2thrust::timer_callback()
-{
-  auto msg_left_thrust = std_msgs::msg::Float64();
-  msg_left_thrust.data = 0.40;
-  left_thrust_pub->publish(msg_left_thrust);
-  RCLCPP_INFO(get_logger(), "now publishing message");
-}
+    void wrench2thrust::sub_callback(const geometry_msgs::msg::WrenchStamped &msg) {
+        RCLCPP_INFO(get_logger(), "%f", msg.wrench.force.x);
+    }
+
+    void wrench2thrust::timer_callback() {
+        auto msg_left_thrust = std_msgs::msg::Float64();
+        msg_left_thrust.data = 0.40;
+        left_prop_thrust_pub->publish(msg_left_thrust);
+        RCLCPP_INFO(get_logger(), "now publishing message");
+    }
 
 }  // namespace wrench2thrust_ns

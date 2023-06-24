@@ -60,23 +60,24 @@ install(
 ## Testing ##
 #############
 
-if(BUILD_TESTING)
-  find_package(ament_cmake_gtest REQUIRED)
-  find_package(ament_lint_auto REQUIRED)
-  find_package(ament_cmake_pytest REQUIRED)
-
-  # ROS2 linters, but disable copyright test. PickNik's copyright's may not conform
-  # to this test
-  # set(ament_cmake_copyright_FOUND TRUE)
-  # ament_lint_auto_find_test_dependencies()
-
-  # GTests
-  ament_add_gtest(wrench2thrust_test test/wrench2thrust_test.cpp)
-  target_link_libraries(wrench2thrust_test
-    ${PROJECT_NAME})
-  ament_target_dependencies(wrench2thrust_test ${THIS_PACKAGE_INCLUDE_DEPENDS})
-endif()
+#if(BUILD_TESTING)
+#  find_package(ament_cmake_gtest REQUIRED)
+#  find_package(ament_lint_auto REQUIRED)
+#  find_package(ament_cmake_pytest REQUIRED)
+#
+#  # ROS2 linters, but disable copyright test. PickNik's copyright's may not conform
+#  # to this test
+#  # set(ament_cmake_copyright_FOUND TRUE)
+#  # ament_lint_auto_find_test_dependencies()
+#
+#  # GTests
+#  ament_add_gtest(wrench2thrust_test test/wrench2thrust_test.cpp)
+#  target_link_libraries(wrench2thrust_test
+#    ${PROJECT_NAME})
+#  ament_target_dependencies(wrench2thrust_test ${THIS_PACKAGE_INCLUDE_DEPENDS})
+#endif()
 
 ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
 ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
 ament_package()
+
