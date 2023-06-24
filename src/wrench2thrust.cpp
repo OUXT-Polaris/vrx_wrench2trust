@@ -45,15 +45,15 @@ namespace wrench2thrust_ns
 wrench2thrust::wrench2thrust(const rclcpp::NodeOptions& options) : Node("wrench2thrust", options)
 {
   RCLCPP_INFO(get_logger(), "Initializing wrench2thrust...");
-  wrench_sub = create_subscription<geometry_msgs::msg::WrenchStamped>(
-      "wamv/wrench", 1,
-      [this](const geometry_msgs::msg::WrenchStamped& msg) { RCLCPP_INFO(get_logger(), "%f", msg.wrench.force.x); });
-//  left_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/thrust/data", 10);
-//  timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
+  wrench_sub = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
+      "wamv/wrench", 1, std::bind(&wrench2thrust::sub_callback, this, _1));
+  //  left_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/thrust/data", 10);
+  //  timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
 }
 
-void wrench2thrust::sub_callback(){
-
+void wrench2thrust::sub_callback(const geometry_msgs::msg::WrenchStamped &msg)
+{
+  RCLCPP_INFO(get_logger(),"%f",msg.wrench.force.x);
 }
 
 void wrench2thrust::timer_callback()

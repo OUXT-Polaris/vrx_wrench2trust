@@ -67,7 +67,7 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_thrust_pub;
   rclcpp::TimerBase::SharedPtr timer_;
 
-  void sub_callback();
+  void sub_callback(const geometry_msgs::msg::WrenchStamped &msg);
 };  // end class wrench2thrust
 
 // Create std pointers for this class
