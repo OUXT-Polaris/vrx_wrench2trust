@@ -2,6 +2,7 @@
 
 ## Simple procedure manual
 1. `cd ouxt_ws`
+2. `git clone git@github.com:OUXT-Polaris/vrx_wrench2trust.git`
 2. `colcon build --packages-select vrx_wrench2thrust`
 3. `source install/setup.bash`
 4.  in another terminal, `source ~vrx_ws/install/setup.bash`,`ros2 launch vrx_gz competition.launch.py world:=sydney_regatta`
