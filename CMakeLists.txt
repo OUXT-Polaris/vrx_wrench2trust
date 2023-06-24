@@ -12,6 +12,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   rclcpp
   eigen3_cmake_module
   Eigen3
+  std_msgs
+  geometry_msgs
 )
 
 find_package(ament_cmake REQUIRED)

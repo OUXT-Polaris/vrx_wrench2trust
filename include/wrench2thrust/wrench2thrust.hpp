@@ -45,6 +45,10 @@
 // ROS
 #include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <geometry_msgs/msg/wrench_stamped.hpp>
+#include <std_msgs/msg/float64.hpp>
+
+using namespace std::chrono_literals;
 
 namespace wrench2thrust
 {
@@ -53,8 +57,14 @@ class wrench2thrust : public rclcpp::Node
 public:
   /** \brief Constructor */
   wrench2thrust();
+//  void wrench_callback();
+  void timer_callback();
 
 private:
+  rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_thrust_pub;
+  rclcpp::TimerBase::SharedPtr timer_;
+
 
 };  // end class wrench2thrust
 
