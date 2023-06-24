@@ -49,12 +49,23 @@ namespace wrench2thrust_ns {
         left_prop_pos_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/left/pos", 10);
         right_prop_thrust_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/right/thrust", 10);
         right_prop_pos_pub = this->create_publisher<std_msgs::msg::Float64>("/wamv/thrusters/right/pos", 10);
-
-        //  timer_ = this->create_wall_timer(100ms, std::bind(&wrench2thrust::timer_callback, this));
     }
 
     void wrench2thrust::sub_callback(const geometry_msgs::msg::WrenchStamped &msg) {
-        RCLCPP_INFO(get_logger(), "%f", msg.wrench.force.x);
+        double wamv_props_angle = atan2(msg.wrench.force.y, msg.wrench.force.x);
+        double wamv_props_thrust = sqrt(pow(msg.wrench.force.x, 2) + pow(msg.wrench.force.y, 2));
+        RCLCPP_INFO(get_logger(), "angle(rad)is %f,\t angle(deg) is %f,\t thrust is %f", wamv_props_angle,
+                    wamv_props_angle / M_PI * 180.0, wamv_props_thrust);
+        auto prop_angle_msg = std_msgs::msg::Float64();
+        auto prop_thrust_msg = std_msgs::msg::Float64();
+        double prop_angle = wamv_props_angle;
+        prop_angle_msg.data = prop_angle;
+        prop_thrust_msg.data = wamv_props_thrust / 2;
+        RCLCPP_DEBUG(get_logger(), "prop ang is %f", prop_angle);
+        left_prop_pos_pub->publish(prop_angle_msg);
+        right_prop_pos_pub->publish(prop_angle_msg);
+        left_prop_thrust_pub->publish(prop_thrust_msg);
+        right_prop_thrust_pub->publish(prop_thrust_msg);
     }
 
     void wrench2thrust::timer_callback() {

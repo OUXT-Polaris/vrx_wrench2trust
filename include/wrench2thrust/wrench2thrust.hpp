@@ -68,6 +68,8 @@ namespace wrench2thrust_ns {
         rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr right_prop_thrust_pub;
         rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr right_prop_pos_pub;
         rclcpp::TimerBase::SharedPtr timer_;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr debug_angle_float64_pub;
+        rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr debug_thrust_float64_pub;
 
         void sub_callback(const geometry_msgs::msg::WrenchStamped &msg);
     };  // end class wrench2thrust
