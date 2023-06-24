@@ -51,7 +51,7 @@ int main(int argc, char ** argv)
   RCLCPP_INFO(logger, "Starting wrench2thrust...");
 
   // Create a node.
-  auto node = std::make_shared<wrench2thrust::wrench2thrust>();
+  auto node = std::make_shared<wrench2thrust_ns::wrench2thrust>(rclcpp::NodeOptions());
 
   /* Create an executor that will be responsible for execution of callbacks for
    * a set of nodes. With this version, all callbacks will be called from within

@@ -50,14 +50,16 @@
 
 using namespace std::chrono_literals;
 
-namespace wrench2thrust
+namespace wrench2thrust_ns
 {
 class wrench2thrust : public rclcpp::Node
 {
 public:
   /** \brief Constructor */
-  wrench2thrust();
-//  void wrench_callback();
+
+  explicit  wrench2thrust(const rclcpp::NodeOptions &options=rclcpp::NodeOptions());
+
+  void wrench_callback();
   void timer_callback();
 
 private:
@@ -65,7 +67,7 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr left_thrust_pub;
   rclcpp::TimerBase::SharedPtr timer_;
 
-
+  void sub_callback();
 };  // end class wrench2thrust
 
 // Create std pointers for this class
