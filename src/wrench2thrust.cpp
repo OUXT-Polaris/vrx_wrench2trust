@@ -41,7 +41,7 @@ using std::placeholders::_1;
 
 namespace wrench2thrust_ns {
 
-    wrench2thrust::wrench2thrust(const rclcpp::NodeOptions &options) : Node("wrench2thrust", options) {
+    wrench2thrust::wrench2thrust(const rclcpp::NodeOptions &options) : Node("vrx_wrench2thrust", options) {
         RCLCPP_INFO(get_logger(), "Initializing wrench2thrust...");
         wrench_sub = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
                 "wamv/wrench", 1, std::bind(&wrench2thrust::sub_callback, this, _1));

@@ -70,7 +70,6 @@ namespace wrench2thrust_ns {
         rclcpp::TimerBase::SharedPtr timer_;
         rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr debug_angle_float64_pub;
         rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr debug_thrust_float64_pub;
-
         void sub_callback(const geometry_msgs::msg::WrenchStamped &msg);
     };  // end class wrench2thrust
 
